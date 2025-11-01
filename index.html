@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What to Eat? AI - Context-Aware Food Recommender</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">🍜 กินไรดี ? AI</h1>
+            <p class="subtitle">วันนี้กินไรดี ?</p>
+            <p class="subtitle">ถ้าคิดไม่ออก ลองให้เราช่วยคิด😊</p>
+        </header>
+
+        <!-- Progress Indicator -->
+        <div class="progress-indicator">
+            <div class="progress-step active" data-step="1">
+                <span class="step-number">1</span>
+                <span class="step-label">ตำแหน่ง</span>
+            </div>
+            <div class="progress-step" data-step="2">
+                <span class="step-number">2</span>
+                <span class="step-label">งบประมาณ</span>
+            </div>
+            <div class="progress-step" data-step="3">
+                <span class="step-number">3</span>
+                <span class="step-label">ประเภทอาหาร</span>
+            </div>
+            <div class="progress-step" data-step="4">
+                <span class="step-number">4</span>
+                <span class="step-label">ข้อจำกัด</span>
+            </div>
+            <div class="progress-step" data-step="5">
+                <span class="step-number">5</span>
+                <span class="step-label">เวลา</span>
+            </div>
+        </div>
+
+        <main class="main-content">
+            <!-- Location Section -->
+            <section class="form-section active" id="location-section">
+                <h2 class="section-title">📍 ตำแหน่งของคุณ</h2>
+                <div class="location-container">
+                    <button id="get-location-btn" class="btn btn-primary">
+                        <span class="icon">📍</span>
+                        ใช้ตำแหน่งปัจจุบัน
+                    </button>
+                    <div class="location-fallback" id="location-fallback" style="display: none;">
+                        <input type="text" id="location-input" placeholder="พิมพ์ชื่อสถานที่ หรือที่อยู่..." class="input-text">
+                        <button id="use-manual-location-btn" class="btn btn-secondary">ใช้ตำแหน่งนี้</button>
+                    </div>
+                    <div id="location-status" class="status-message"></div>
+                    <div id="map-widget" class="map-widget" style="display: none;">
+                        <div class="map-placeholder">
+                            <p>แผนที่ขนาดเล็กสำหรับวาง pin</p>
+                            <button id="drop-pin-btn" class="btn btn-secondary">วาง Pin</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Budget Section -->
+            <section class="form-section" id="budget-section" style="display: none;">
+                <h2 class="section-title">💰 งบประมาณ</h2>
+                <div class="budget-container">
+                    <div class="budget-buttons">
+                        <button class="budget-btn" data-budget="low" data-value="1">
+                            <span class="baht-icon">฿</span>
+                            <span class="budget-label">ถูก</span>
+                        </button>
+                        <button class="budget-btn" data-budget="medium" data-value="2">
+                            <span class="baht-icon">฿฿</span>
+                            <span class="budget-label">ปานกลาง</span>
+                        </button>
+                        <button class="budget-btn" data-budget="high" data-value="3">
+                            <span class="baht-icon">฿฿฿</span>
+                            <span class="budget-label">แพง</span>
+                        </button>
+                    </div>
+                    <div class="budget-slider-container">
+                        <input type="range" id="budget-slider" min="1" max="3" value="2" class="budget-slider">
+                        <div class="slider-labels">
+                            <span>ถูก</span>
+                            <span>ปานกลาง</span>
+                            <span>แพง</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cuisine/Mood Section -->
+            <section class="form-section" id="cuisine-section" style="display: none;">
+                <h2 class="section-title">🍽️ ประเภทอาหาร / บรรยากาศ</h2>
+                <div class="cuisine-grid">
+                    <button class="cuisine-btn" data-cuisine="street-food">
+                        <span class="cuisine-icon">🍜</span>
+                        <span class="cuisine-label">สตรีทฟู้ด</span>
+                    </button>
+                    <button class="cuisine-btn" data-cuisine="japanese">
+                        <span class="cuisine-icon">🍱</span>
+                        <span class="cuisine-label">อาหารญี่ปุ่น</span>
+                    </button>
+                    <button class="cuisine-btn" data-cuisine="thai">
+                        <span class="cuisine-icon">🍛</span>
+                        <span class="cuisine-label">อาหารไทย</span>
+                    </button>
+                    <button class="cuisine-btn" data-cuisine="healthy">
+                        <span class="cuisine-icon">🥗</span>
+                        <span class="cuisine-label">อาหารคลีน</span>
+                    </button>
+                    <button class="cuisine-btn" data-cuisine="relaxed">
+                        <span class="cuisine-icon">☕</span>
+                        <span class="cuisine-label">นั่งชิล</span>
+                    </button>
+                    <button class="cuisine-btn" data-cuisine="italian">
+                        <span class="cuisine-icon">🍝</span>
+                        <span class="cuisine-label">อาหารอิตาเลียน</span>
+                    </button>
+                    <button class="cuisine-btn" data-cuisine="korean">
+                        <span class="cuisine-icon">🍲</span>
+                        <span class="cuisine-label">อาหารเกาหลี</span>
+                    </button>
+                    <button class="cuisine-btn" data-cuisine="western">
+                        <span class="cuisine-icon">🥩</span>
+                        <span class="cuisine-label">อาหารฝรั่ง</span>
+                    </button>
+                    <button class="cuisine-btn" data-cuisine="seafood">
+                        <span class="cuisine-icon">🦐</span>
+                        <span class="cuisine-label">อาหารทะเล</span>
+                    </button>
+                    <button class="cuisine-btn" data-cuisine="dessert">
+                        <span class="cuisine-icon">🍰</span>
+                        <span class="cuisine-label">ของหวาน</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Dietary Restrictions Section -->
+            <section class="form-section" id="dietary-section" style="display: none;">
+                <h2 class="section-title">🥬 ข้อจำกัดทางอาหาร</h2>
+                <div class="dietary-container">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="vegetarian" class="checkbox-input" value="vegetarian">
+                        <span class="checkbox-custom"></span>
+                        <span class="checkbox-text">มังสวิรัติ</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="vegan" class="checkbox-input" value="vegan">
+                        <span class="checkbox-custom"></span>
+                        <span class="checkbox-text">เจ</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="no-pork" class="checkbox-input" value="no-pork">
+                        <span class="checkbox-custom"></span>
+                        <span class="checkbox-text">ไม่มีเนื้อหมู</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="halal" class="checkbox-input" value="halal">
+                        <span class="checkbox-custom"></span>
+                        <span class="checkbox-text">ฮาลาล</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="gluten-free" class="checkbox-input" value="gluten-free">
+                        <span class="checkbox-custom"></span>
+                        <span class="checkbox-text">ไม่มีกลูเตน</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="lactose-free" class="checkbox-input" value="lactose-free">
+                        <span class="checkbox-custom"></span>
+                        <span class="checkbox-text">ไม่มีแลคโตส</span>
+                    </label>
+                </div>
+            </section>
+
+            <!-- Time/Availability Section -->
+            <section class="form-section" id="time-section" style="display: none;">
+                <h2 class="section-title">🕐 เวลา / ความพร้อม</h2>
+                <div class="time-container">
+                    <button id="open-now-btn" class="btn btn-primary btn-large">
+                        <span class="icon">🕐</span>
+                        เปิดตอนนี้
+                    </button>
+                    <div class="time-divider">
+                        <span>หรือ</span>
+                    </div>
+                    <div class="time-picker-container">
+                        <label for="dining-time" class="time-label">เลือกเวลาที่ต้องการทาน:</label>
+                        <input type="datetime-local" id="dining-time" class="input-datetime">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <div class="navigation-container">
+                <button id="back-btn" class="btn btn-back" style="display: none;">
+                    <span class="icon">←</span>
+                    ย้อนกลับ
+                </button>
+                <button id="next-btn" class="btn btn-next">
+                    ถัดไป
+                    <span class="icon">→</span>
+                </button>
+                <button id="submit-btn" class="btn btn-submit" style="display: none;">
+                    <span class="icon">🔍</span>
+                    ค้นหาอาหารที่แนะนำ
+                </button>
+            </div>
+        </main>
+
+        <!-- Results Section (initially hidden) -->
+        <section id="results-section" class="results-section" style="display: none;">
+            <h2 class="section-title">✨ ผลการค้นหา</h2>
+            <div id="results-container" class="results-container"></div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
