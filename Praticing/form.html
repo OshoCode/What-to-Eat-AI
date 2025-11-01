@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>My First Webpage</title>
+    </head>
+    <body>
+        <header>
+            <h1>Our registeration page</h1>
+        </header>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </nav>
+        <main>
+            <p id="p1"></p>
+            <p id="p2"></p>
+            <p id="p3"></p>
+            <form action="welcome.html" method="POST">
+            <div>
+                <label for="name">Please enter your name:</label>
+                <input type="text" id="name" name="name" placeholder="Who are you?" required>
+            </div>
+            <div>
+                <label for="email"> What is your email?</label>
+                <input type="email" id="email" name="email" placeholder="Get more info about us!"required>
+            </div>
+            <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" maxlength="8" placeholder="No more than 8 letters" required>
+            </div>
+            <div>
+            <label for="date">Birthdate:</label>
+            <input type="date" id="date" name="date" placeholder="When was you born?" required>
+            </div>
+            <div>
+            <label for="tel">Phone number:</label>
+            <input type="tel" id="tel" name="tel" maxlength="10" placeholder="For us to making more contact" required>
+            </div>
+            <div>
+            <label>Gender:</label>
+            <input type="radio" id="male" name="gender" value="Male">
+            <label for="male">Male</label>
+            <input type="radio" id="female" name="gender" value="Female">
+            <label for="female">Female</label>
+            <input type="radio" id="others" name="gender" value="Others">
+            <label for="others">Others</label>
+            </div>
+            <div>
+            <label for="bio"> Introduce yourself a bit:</label>
+            <textarea id="bio" name="bio" placeholder="We wnat to know more about you!"></textarea>
+            </div>
+            <div>
+                <label for="experience">Have you ever studied code before?</label>
+                <select id="experience" name="experience">
+                    <option value="No clue">I have no clue about coding</option>
+                    <option value="A little">I can code just a little bit</option>
+                    <option value="professional">I am a professional programmer</option>
+                </select>
+            </div>
+            <div>
+                <strong><label for="subscribe">Subscribe to our Email list</label></strong>
+                <input type="checkbox" id="subscribe" name="subscribe">
+            </div>
+            <div>
+            <label for="file">Please insert your portfolio here:</label>
+            <input type="file" id="file" name="file" placeholder="Show out your perfomance!" required>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+        <hr>
+        <em><h3>What would you learn</h3></em>
+        <table border="2" align="center">
+            <tr bgcolor="yellow">
+                <th>Day</th>
+                <th>Language Model</th>
+                <th>Topic</th>
+                <th>Exercise</th>
+            </tr>
+            <tr>
+                <td rowspan="4">Day 1</td>
+                <td rowspan="4">HTML</td>
+                <td>Text</td>
+                <td rowspan="4">Build personal bio website</td>
+            </tr>
+            <tr>
+                <td>Hyperlink</td>
+            </tr>
+            <tr>
+                <td>Image</td>
+            </tr>
+            <tr>
+                <td>Lists</td>
+            </tr>
+            <tr>
+                <td rowspan="2">Day 2</td>
+                <td rowspan="2">HTML</td>
+                <td>Buttons</td>
+                <td rowspan="2">Build registeration page</td>
+            </tr>
+            <tr>
+                <td>Forms</td>
+            </tr>
+        </table>
+        </main>
+        <hr>
+        <footer>
+            <p>&copy; 2025 Osho's Website</p>
+        </footer>    
+    <script src="index.js"></script>
+    </body>
+</html>

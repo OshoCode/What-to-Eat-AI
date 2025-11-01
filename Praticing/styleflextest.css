@@ -1,0 +1,159 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: grid;
+    grid-template-areas: 
+        "header header"
+        "navbar navbar"
+        "sidebar content"
+        "footer footer";
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: auto;
+    min-height: 100vh;
+}
+
+/* Header */
+.header {
+    grid-area: header;
+    background: black;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-size: 24px;
+}
+
+/* Navbar */
+.navbar {
+    grid-area: navbar;
+    background: #333;
+    padding: 15px;
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+    justify-content: center;
+}
+
+.navbar ul li {
+    margin: 0 15px;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    transition: color 0.3s, background 0.3s;
+    position: relative;
+}
+.navbar ul li a:hover {
+    color: yellow; /* Change text color */
+    background: rgba(255, 255, 255, 0.2); /* Add slight background highlight */
+    padding: 5px 10px; /* Add padding to make it more clickable */
+    border-radius: 5px; /* Make it look smooth */
+}
+.navbar ul li a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 2px;
+    background: yellow;
+    transform: scaleX(0);
+    transition: transform 0.3s ease-in-out;
+}
+
+.navbar ul li a:hover::after {
+    transform: scaleX(1); /* Expands underline */
+}
+/* Sidebar */
+.sidebar {
+    grid-area: sidebar;
+    background: #f4f4f4;
+    padding: 20px;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li {
+    margin: 10px 0;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: black;
+}
+
+/* Content */
+.content {
+    grid-area: content;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+}
+
+.post {
+    display: flex;
+    background: white;
+    padding: 15px;
+    box-shadow: 0px 2px 5px rgba(0,0,0,0.2);
+    width: 100%;
+    align-items: center;
+}
+
+.post img {
+    width: 120px;
+    height: auto;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+.post-info {
+    flex: 1;
+}
+
+/* Footer */
+.footer {
+    grid-area: footer;
+    background: black;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+/* 📱 Make it responsive */
+@media (max-width: 768px) {
+    .container {
+        grid-template-areas: 
+            "header"
+            "navbar"
+            "content"
+            "sidebar"
+            "footer";
+        grid-template-columns: 1fr;
+    }
+
+    .navbar ul {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .post {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .post img {
+        width: 100%;
+        margin: 0 0 10px 0;
+    }
+}

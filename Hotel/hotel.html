@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="hotel.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <title>Hotel Landing Page</title>
+</head>
+<body>
+    <header class="header">
+        <nav>
+            <div class="nav-logo">
+                <a href="#">
+                    <img src="logo1.png" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li class="links" id="link1"><a href="#">Home</a></li>
+                <li class="links" id="link2"><a href="#">About</a></li>
+                <li class="links" id="link3"><a href="#">Room</a></li>
+                <li class="links" id="link4"><a href="#">Service</a></li>
+                <li class="links" id="link5"><a href="#">Explore</a></li>
+                <li class="links" id="link6"><a href="#">Contact</a></li>
+            </ul>
+            <button class="nav-btn">Book Now!</button>
+        </nav>
+        <div class="head-container">
+            <div class="head-content">
+                <h3>EXPERIENCE YOUR PERFECT VACATION</h3>
+                <h1>Best Summer Choice</h1>
+            </div>
+        </div>
+        <div class="booking">
+            <form action="/" class="booking-form">
+                <div class="input">
+                    <span><i class="ri-calendar-2-line"></i></span>
+                    <div>
+                        <label for="check-in">Check-In</label>
+                        <input type="date" placeholder="Check-In">
+                    </div>
+                </div>
+                <div class="input">
+                    <span><i class="ri-calendar-2-line"></i></span>
+                    <div>
+                        <label for="check-out">Check-Out</label>
+                        <input type="date" placeholder="Check-Out">
+                    </div>
+                </div>
+                <div class="input">
+                    <span><i class="ri-user-3-fill"></i></span>
+                    <div>
+                        <label for="check-in">Guest (Adult)</label>
+                        <input type="number" placeholder="Guest">
+                        <label for="check-in">Guest (Children)</label>
+                        <input type="number" placeholder="Guest">
+                    </div>
+                </div>
+                <div class="input-btn">
+                    <button class="booking-btn">Check Availability</button>
+                </div>
+            </form>
+        </div>
+    </header>
+    <section class="about">
+        <h3>About Us</h3>
+        <div class="about-content">
+            <div class="about-img">
+                <img src="reception.jpg" alt="about">
+            </div>
+            <div class="about-text">
+                <h1>The Best Holidays Start Here!</h1>
+                <p>With a focus on excellent customer service, we are dedicated to providing the best holiday experience possible. We offer a range of services to make your stay with us as comfortable as possible. Our team is always on hand to help with any queries you may have.</p>
+                <br>
+                <p>Our hotel is located in the heart of the city, close to all the major attractions. We offer a range of rooms to suit all budgets, from standard rooms to luxury suites. Our restaurant serves a range of delicious dishes, and our bar is the perfect place to relax and unwind after a long day of sightseeing.</p>
+                <div>
+                    <button class="about-btn">Read More</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <main>
+        <section class="room">
+            <h3>Our Rooms</h3>
+            <div class="room-container">
+                <div class="room-slider"></div>
+                <div class="room-arrow">
+                    <button id="prevBtn"><i class="ri-arrow-left-s-line"></i></button>
+                    <button id="nextBtn"><i class="ri-arrow-right-s-line"></i></button>
+                </div> 
+            </div>
+        </section>
+        <section class="service">
+            <h3>Our Services</h3>
+            <div class="service-content">
+                <div class="service-box">
+                    <div class="service-icon">
+                        <i class="ri-hotel-bed-fill"></i>
+                    </div>
+                    <h4>Comfortable Rooms</h4>
+                    <p>Our rooms are designed with your comfort in mind. Each room is equipped with all the amenities you need for a relaxing stay.</p>
+                </div>
+                <div class="service-box">
+                    <div class="service-icon">
+                        <i class="ri-service-line"></i>
+                    </div>
+                    <h4>24 Hours Room Service</h4>
+                    <p>Enjoy our 24 hours room service for your convenience, providing you with everything you need at any time of the day.</p>
+                </div>
+                <div class="service-box">
+                    <div class="service-icon">
+                        <i class="ri-t-shirt-line"></i>
+                    </div>
+                    <h4>Free Laundry</h4>
+                    <p>Take advantage of our free laundry service to keep your clothes fresh and clean during your stay.</p>
+                </div>
+                <div class="service-box">
+                    <div class="service-icon">
+                        <i class="ri-restaurant-fill"></i>
+                    </div>
+                    <h4>Restaurant</h4>
+                    <p>Our restaurant serves a range of delicious dishes, from traditional local cuisine to international favorites.</p>
+                </div>
+                <div class="service-box">
+                    <div class="service-icon">
+                        <i class="ri-goblet-2-fill"></i>
+                    </div>
+                    <h4>Bar</h4>
+                    <p>Our bar is the perfect place to relax and unwind after a long day of sightseeing. We offer a range of drinks to suit all tastes.</p>
+                </div>
+                <div class="service-box">
+                    <div class="service-icon">
+                        <i class="ri-wifi-fill"></i>
+                    </div>
+                    <h4>Free Wi-Fi</h4>
+                    <p>We offer free Wi-Fi throughout the hotel, so you can stay connected wherever you are.</p>
+                </div>
+            </div>
+        </section>
+        <section class="explore">
+            <h3>Explore</h3>
+            <div class="explore-content">
+                <div class="explore-box">
+                    <div class="explore-img">
+                        <img src="pool.jpg" alt="pool">
+                    </div>
+                    <div class="explore-text">
+                        <h4>Swimming Pool</h4>
+                        <p>Our outdoor swimming pool is the perfect place to relax and unwind. Take a dip in the crystal-clear water and soak up the sun on our poolside loungers.</p>
+                    </div>
+                    </div>
+                <div class="explore-box">
+                    <div class="explore-img">
+                        <img src="gym.jpg" alt="pool">
+                    </div>
+                    <div class="explore-text">
+                        <h4>Fitness Center</h4>
+                        <p>Our fitness center is equipped with state-of-the-art equipment, so you can stay in shape while you're away from home.</p>
+                    </div>
+                </div>
+                <div class="explore-box">
+                    <div class="explore-img">
+                        <img src="spa.jpg" alt="pool">
+                    </div>
+                    <div class="explore-text">
+                        <h4>Spa</h4>
+                        <p>Our spa offers a range of treatments to help you relax and rejuvenate. From massages to facials, we have everything you need to unwind.</p>
+                    </div>
+                </div>
+            </div>
+            <footer>
+            <div class="foot-column1">
+                <div class="foot-logo">
+                    <a href="#">
+                        <img src="logo1.png" alt="logo">
+                    </a>
+                    <P>Diascover a world of comfort, luxury and adventure as you explore our curated selection of hotels, makling every moment of your getaway truly extraordinary.</P>
+                </div>
+                <div class="socials">
+                    <a href="#"><i class="ri-mail-line"></i></a>
+                    <a href="#"><i class="ri-facebook-box-fill"></i></a>
+                    <a href="#"><i class="ri-instagram-line"></i></a>
+                    <a href="#"><i class="ri-youtube-fill"></i></i></a>
+                    <a href="#"><i class="ri-twitter-x-line"></i></a>
+                </div>
+            </div>
+            <div class="foot-column2">
+                <p>Browser Destinations</p>
+                <a href="#">Special Offers & Packages</a>
+                <a href="#">Room Type & Amenities</a>
+                <a href="#">Customer Reviews & Ratings</a>
+            </div>
+            <div class="foot-column3">
+                <p>Contact</p>
+                <a href="#">Contact US</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms & Conditions</a>
+            </div>
+        </footer>
+        <div class="copyright">
+            Copyright © 2025 OshoCode. All Rights Reserved.
+        </div>
+        </section>
+    </main>
+    <script src="hotel.js"></script>
+</body>
+</html>

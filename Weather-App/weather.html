@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How's the Weather Today?</title>
+    <link rel="stylesheet" href="weather.css">
+</head>
+<body>
+    <div class="card">
+        <h1>How's the Weather Today?</h1>
+        <div class="search-box">
+            <input type="text" class="search-input" placeholder="Where are you?" spellcheck="false">
+            <button class="search-btn"><img src="search.png"></button>
+        </div>
+        <div class="weather-box">
+            <img src="rain.png" class="weather-icon">
+            <h1 class="temp">25°C</h1>
+            <h2 class="city">New York</h2>
+            <div class="details">
+                <div class="column">
+                    <div class="humidity">
+                        <img src="humidity.png">
+                        <p><span>50%</span><br>Humidity</p>
+                    </div>
+                    <div class="wind">
+                        <img src="wind.png">
+                        <p><span>15 km/h</span><br>Wind Speed</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="weather.js"></script>
+</body>
+</html>
