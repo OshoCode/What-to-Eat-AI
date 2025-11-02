@@ -365,7 +365,7 @@ function selectFutureTime() {
 }
 
 // Submit Function
-function handleSubmit() {
+async function handleSubmit() {
     // Validate all steps
     if (!validateLocation()) {
         goToStep(1);
@@ -374,7 +374,10 @@ function handleSubmit() {
 
     // Collect all form data
     const formData = {
-        location: appState.location,
+        location: {
+            lat: appState.location.lat,
+            lng: appState.location.lng
+        },
         budget: appState.budget,
         cuisines: appState.cuisines,
         dietaryRestrictions: appState.dietary,
@@ -387,12 +390,48 @@ function handleSubmit() {
     elements.submitBtn.innerHTML = '<span class="loading"></span> กำลังค้นหา...';
     elements.submitBtn.disabled = true;
 
-    // Simulate API call (replace with actual API call)
-    setTimeout(() => {
-        displayResults(formData);
+    try {
+        // Call backend API
+        const API_URL = 'http://localhost:3000/api/recommendations';
+        
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        
+        if (data.success && data.results) {
+            displayResults(data.results);
+        } else {
+            throw new Error(data.error || 'No results found');
+        }
+    } catch (error) {
+        console.error('Error fetching recommendations:', error);
+        showErrorMessage('เกิดข้อผิดพลาดในการค้นหา กรุณาลองใหม่อีกครั้ง');
+    } finally {
         elements.submitBtn.innerHTML = '<span class="icon">🔍</span> ค้นหาอาหารที่แนะนำ';
         elements.submitBtn.disabled = false;
-    }, 1500);
+    }
+}
+
+function showErrorMessage(message) {
+    elements.resultsSection.style.display = 'block';
+    elements.resultsContainer.innerHTML = `
+        <div style="text-align: center; padding: 40px; color: var(--primary-color);">
+            <p style="font-size: 1.2rem; margin-bottom: 10px;">❌ ${message}</p>
+            <p style="font-size: 0.9rem; color: var(--text-secondary);">กรุณาตรวจสอบว่า backend server กำลังทำงานอยู่ที่ http://localhost:3000</p>
+        </div>
+    `;
+    document.querySelector('.main-content').style.display = 'none';
+    document.querySelector('.progress-indicator').style.display = 'none';
 }
 
 function goToStep(stepNumber) {
@@ -405,50 +444,58 @@ function goToStep(stepNumber) {
     }
 }
 
-// Display Results (Demo)
-function displayResults(formData) {
-    // This is a demo - replace with actual API integration
+// Display Results from API
+function displayResults(results) {
     elements.resultsSection.style.display = 'block';
     elements.resultsContainer.innerHTML = '';
 
-    // Demo results
-    const demoResults = [
-        {
-            name: 'ร้านอาหารไทยอร่อย',
-            cuisine: 'อาหารไทย',
-            budget: '฿฿',
-            distance: '0.5 กม.',
-            rating: 4.5,
-            address: '123 ถนนสุขุมวิท'
-        },
-        {
-            name: 'สตรีทฟู้ดเด็ด',
-            cuisine: 'สตรีทฟู้ด',
-            budget: '฿',
-            distance: '0.8 กม.',
-            rating: 4.8,
-            address: '456 ถนนสีลม'
-        },
-        {
-            name: 'ร้านนั่งชิล',
-            cuisine: 'นั่งชิล',
-            budget: '฿฿',
-            distance: '1.2 กม.',
-            rating: 4.3,
-            address: '789 ถนนสุขุมวิท'
-        }
-    ];
+    if (results.length === 0) {
+        elements.resultsContainer.innerHTML = `
+            <div style="text-align: center; padding: 40px; color: var(--text-secondary);">
+                <p style="font-size: 1.2rem;">ไม่พบร้านอาหารที่ตรงตามเงื่อนไข</p>
+                <p style="font-size: 0.9rem; margin-top: 10px;">ลองเปลี่ยนเงื่อนไขการค้นหาดู</p>
+            </div>
+        `;
+        document.querySelector('.main-content').style.display = 'none';
+        document.querySelector('.progress-indicator').style.display = 'none';
+        return;
+    }
 
-    demoResults.forEach(result => {
+    // Helper function to get budget display
+    function getBudgetDisplay(level) {
+        const budgets = { 1: '฿', 2: '฿฿', 3: '฿฿฿' };
+        return budgets[level] || '฿';
+    }
+
+    // Helper function to format distance
+    function formatDistance(meters) {
+        if (meters < 1000) {
+            return `${meters} ม.`;
+        } else {
+            return `${(meters / 1000).toFixed(1)} กม.`;
+        }
+    }
+
+    // Helper function to format suitability score as percentage
+    function formatScore(score) {
+        return Math.round(score * 100);
+    }
+
+    results.forEach(result => {
         const card = document.createElement('div');
         card.className = 'result-card';
+        
+        // Format tags for display
+        const tagsDisplay = result.tags ? result.tags.join(', ') : '-';
+        
         card.innerHTML = `
-            <h3 style="font-size: 1.3rem; margin-bottom: 10px; color: var(--text-primary);">${result.name}</h3>
-            <p style="color: var(--text-secondary); margin-bottom: 8px;"><strong>ประเภท:</strong> ${result.cuisine}</p>
-            <p style="color: var(--text-secondary); margin-bottom: 8px;"><strong>งบประมาณ:</strong> ${result.budget}</p>
-            <p style="color: var(--text-secondary); margin-bottom: 8px;"><strong>ระยะทาง:</strong> ${result.distance}</p>
-            <p style="color: var(--text-secondary); margin-bottom: 8px;"><strong>คะแนน:</strong> ⭐ ${result.rating}</p>
-            <p style="color: var(--text-secondary);"><strong>ที่อยู่:</strong> ${result.address}</p>
+            <h3 style="font-size: 1.3rem; margin-bottom: 10px; color: var(--text-primary);">${result.name_th || result.name}</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 8px;"><strong>ที่อยู่:</strong> ${result.address_th || result.address || '-'}</p>
+            <p style="color: var(--text-secondary); margin-bottom: 8px;"><strong>งบประมาณ:</strong> ${getBudgetDisplay(result.budget_level)}</p>
+            <p style="color: var(--text-secondary); margin-bottom: 8px;"><strong>ระยะทาง:</strong> ${formatDistance(result.distance)}</p>
+            <p style="color: var(--text-secondary); margin-bottom: 8px;"><strong>ประเภท:</strong> ${tagsDisplay}</p>
+            <p style="color: var(--text-secondary); margin-bottom: 8px;"><strong>ความเหมาะสม:</strong> ${formatScore(result.suitability_score)}%</p>
+            ${result.opening_hours ? `<p style="color: var(--text-secondary);"><strong>เวลาเปิด:</strong> ดูรายละเอียด</p>` : ''}
         `;
         elements.resultsContainer.appendChild(card);
     });
