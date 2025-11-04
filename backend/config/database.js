@@ -8,7 +8,7 @@ dotenv.config();
 const pool = new Pool({
     host: process.env.DB_HOST || 'localhost',
     port: process.env.DB_PORT || 5432,
-    database: process.env.DB_NAME || 'what_to_eat_ai',
+    database: process.env.DB_NAME || 'what-to-eat-ai',
     user: process.env.DB_USER || 'postgres',
     password: process.env.DB_PASSWORD || '',
     max: 20, // Maximum number of clients in the pool
