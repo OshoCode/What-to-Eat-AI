@@ -3,16 +3,24 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import pool, { testPostGIS } from './config/database.js';
 import recommendationsRouter from './routes/recommendations.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Middleware
 app.use(cors()); // Enable CORS for frontend
 app.use(express.json()); // Parse JSON request bodies
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../index.html'));
+});
 
 // Health check endpoint
 app.get('/api/health', async (req, res) => {
@@ -30,6 +38,8 @@ app.get('/api/health', async (req, res) => {
         });
     }
 });
+
+
 
 // Recommendations endpoint
 app.use('/api', recommendationsRouter);
